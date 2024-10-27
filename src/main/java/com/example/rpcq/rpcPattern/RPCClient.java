@@ -1,6 +1,5 @@
 package com.example.rpcq.rpcPattern;
 
-import com.example.rpcq.numbers.CalcNumber;
 import org.springframework.amqp.core.DirectExchange;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,6 @@ public class RPCClient {
         System.out.println("Enter the app you want to connect with.");
         System.out.println("For ChatApp, type 'messageKey'");
         System.out.println("For Converter, type 'converterKey'");
-        System.out.println("For Calculator, type 'calcKey'");
         System.out.print("TYPE HERE: ");
         System.out.println();
         String key = scanner.nextLine();
@@ -48,11 +46,6 @@ public class RPCClient {
                 System.out.println("Connected to Converter.");
                 double indianCurrency = converter(key);
                 System.out.println("[Response] Indian Currency: " + indianCurrency);
-            }
-            case "calcKey" -> {
-                System.out.println("Connected to Calculator");
-                double response = calculator(key);
-                System.out.println("[Response] Answer: " + response);
             }
             default -> System.out.println("Key does not exist!");
         }
@@ -75,18 +68,4 @@ public class RPCClient {
         return (double) template.convertSendAndReceive(exchange.getName(), key, nepaliCurrency);
     }
 
-    private double calculator(String key) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("[Request] Enter First Number: ");
-        double num1 = scanner.nextFloat();
-        System.out.print("[Request] Enter Second Number: ");
-        double num2 = scanner.nextFloat();
-        scanner.nextLine();
-        System.out.println("[Request] Enter the operation[add, sub, div, mul]: ");
-        String operation = scanner.nextLine();
-
-        CalcNumber calcNumber = new CalcNumber(num1, num2, operation);
-        template.setReplyTimeout(5000);
-        return (double) template.convertSendAndReceive(exchange.getName(), key, calcNumber);
-    }
 }

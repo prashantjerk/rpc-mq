@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Profile;
 
-@SpringBootApplication(scanBasePackages = {"com.example.rpcq", "com.example.rpcq.rpcPattern"})
+@SpringBootApplication
 public class RPCQApplication {
 	@Profile("client")
 	@Bean
