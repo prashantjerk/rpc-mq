@@ -17,12 +17,8 @@ public class RPCConfig {
 
     @Bean
     public Queue messageQ() {
-        return new Queue("messageQ");
+        return new Queue("authQ", true);
     }
 
-    @Bean
-    public Queue converterQ() {
-        return new Queue("converterQ");
-    }
 
 }
